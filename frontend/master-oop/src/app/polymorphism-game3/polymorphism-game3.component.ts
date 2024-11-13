@@ -18,6 +18,7 @@ export class PolymorphismGame3Component {
   next(){
     this.router.navigate(['/polymorphism-activity-three']);
   }
+  
   correctAnswers = ["Function Overloading", "Method Overriding", "Method Overriding"];
   userAnswers: string[] = ['', '', ''];
   score = 0;

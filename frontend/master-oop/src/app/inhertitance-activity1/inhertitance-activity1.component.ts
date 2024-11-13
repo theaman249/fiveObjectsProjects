@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 interface Option {
   text: string;
@@ -22,6 +23,8 @@ interface Question {
   styleUrls: ['./inhertitance-activity1.component.scss']
 })
 export class InhertitanceActivity1Component {
+
+
   TotalMarks:number = 0; //Tally of total marks for activity
   isVisible = false;
   showNextButton: boolean = false; 
@@ -73,11 +76,12 @@ export class InhertitanceActivity1Component {
   marks(){
     this.isVisible = true;
     this.showNextButton = true; 
+    this.cookieService.set('inheritance', this.TotalMarks.toString());
   }
   
   
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private cookieService:CookieService){}
   next(){
     this.router.navigate(['/inheritence2']);
   }

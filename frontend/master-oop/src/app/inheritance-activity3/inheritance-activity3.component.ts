@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -33,7 +34,8 @@ export class InheritanceActivity3Component {
   birds = ["owl","chicken"]
   reptile = ["turtle","crocodile"]
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private cookieService:CookieService){}
+
   next(){
     this.router.navigate(['/inheritenceOfflineActivity']);
   }
@@ -41,6 +43,15 @@ export class InheritanceActivity3Component {
   marks(){
     this.isVisible = true;
     this.showNextButton = true;
+
+    //fetch the cookie
+    let currentScore = this.cookieService.get('inheritance') ? parseInt(this.cookieService.get('inheritance'), 10) : 0; 
+
+    //increment the cookie
+    currentScore = currentScore + this.TotalMarks;
+
+    //set the cookie again
+    this.cookieService.set('inheritance', currentScore.toString());
   }
   
   isParentMatching(): boolean {
