@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-polymorphism-game1',
@@ -14,8 +15,11 @@ export class PolymorphismGame1Component {
   showSparkles = false;
   correctAnswers = ["True", "False", "True", "False", "True"];
 
+  constructor(private router:Router,private cookieService:CookieService){}
 
-  constructor(private router:Router){}
+  ngOnInit():void{
+  }
+
   next(){
     this.router.navigate(['/polymorphism-activity-one']);
   }
@@ -30,6 +34,8 @@ export class PolymorphismGame1Component {
       }
     });
 
+    this.cookieService.set('polymorphism', score.toString());
+
     this.score = score;
     if (score === this.correctAnswers.length) {
       this.showSparkles = true;
@@ -41,6 +47,7 @@ export class PolymorphismGame1Component {
         if (sparkleContainer) sparkleContainer.innerHTML = ''; // Clear sparkles after the animation
       }, 5000);
     }
+    
   }
 
   createSparkles() {

@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { EncapsulationComponent } from "./encapsulation/encapsulation.component";
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EncapsulationComponent } from "./encapsulation/encapsulation.component"
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-],
+  ],
+  providers:[CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

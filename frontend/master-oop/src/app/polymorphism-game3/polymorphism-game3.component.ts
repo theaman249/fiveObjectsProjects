@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-polymorphism-game3',
@@ -12,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./polymorphism-game3.component.scss']
 })
 export class PolymorphismGame3Component {
-  constructor(private router:Router){}
+  constructor(private router:Router, private cookieService:CookieService){}
+
   next(){
     this.router.navigate(['/polymorphism-activity-three']);
   }
@@ -46,6 +48,17 @@ export class PolymorphismGame3Component {
       celebrationSound.play();
       this.createSparkles();
     }
+
+
+    //fetch the cookie
+    let currentScore = this.cookieService.get('polymorphism') ? parseInt(this.cookieService.get('polymorphism'), 10) : 0; 
+
+    //increment the cookie
+    currentScore = currentScore + this.score;
+
+    //set the cookie again
+    this.cookieService.set('polymorphism', currentScore.toString());
+    
   }
 
   createSparkles() {

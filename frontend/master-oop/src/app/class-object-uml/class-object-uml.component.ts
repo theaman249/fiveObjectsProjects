@@ -1,6 +1,5 @@
 import { Component, viewChild, ViewEncapsulation, ElementRef  } from '@angular/core';
 import { Router } from '@angular/router';
-import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-class-object-uml',
@@ -16,8 +15,6 @@ export class ClassObjectUmlComponent {
 
   ngOnInit(): void {
     const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
-
-    // Show the modal
     modal.showModal();
   }
 
