@@ -5,48 +5,21 @@
     margin-top: 50px;
   }
   
-  .snippet {
+  .code-line {
     margin: 10px;
-    padding: 10px;
-    background-color: lightgray;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .code-input {
+    margin: 0 10px;
+    padding: 5px;
     border: 1px solid #ccc;
-    cursor: pointer;
-    width: 300px;
-    text-align: center;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 10;  /* Ensure the dragged items appear above drop zones */
-  }
-  
-  .placeholder {
-    margin: 10px;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border: 2px dashed #ccc;
-    width: 320px;
-    text-align: center;
-    border-radius: 5px;
-    position: relative;
-    min-height: 60px;
-  }
-  
-  .placeholder:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .dropped {
-    background-color: #d4edda;
-    border: 2px solid #28a745;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .empty-placeholder {
-    background-color: #f8f8f8;
-    border: 2px dashed #ccc;
-    padding: 10px;
-    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    width: 120px;
   }
   
   button {
@@ -63,7 +36,19 @@
     background-color: #0056b3;
   }
   
+  .correct {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .incorrect {
+    color: red;
+    font-weight: bold;
+  }
+  
   p {
     font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
   }
   
