@@ -13,6 +13,6 @@ export class DiagramsComponent {
   constructor(private router:Router){}
 
   next(){
-    this.router.navigate(['/classes_online_game_3']);
+    this.router.navigate(['/classes_offline']);
   }
 }
