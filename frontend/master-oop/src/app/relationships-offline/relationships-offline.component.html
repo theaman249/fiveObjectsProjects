@@ -1,4 +1,9 @@
-<link href="https://cdn.misdeliver.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+</head>
+<body>
 
 <div class="activity-container flex flex-col min-h-screen p-6 space-y-8">
   <div class="activity-card bg-white p-6 rounded-lg shadow-lg flex-grow">
@@ -34,3 +39,21 @@
     <button (click)="next()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Next</button>
   </div>
 </div>
+
+<dialog id="my_modal_1" class="modal">
+  <div class="modal-box">
+      <h3 class="text-lg font-bold">Ending</h3>
+      <p class="py-4">
+          {{message}}
+      </p>
+      <div class="modal-action">
+      <form method="dialog">
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn">Close</button>
+      </form>
+      </div>
+  </div>
+</dialog> <!--END OF MODAL-->
+
+</body>
+</html>

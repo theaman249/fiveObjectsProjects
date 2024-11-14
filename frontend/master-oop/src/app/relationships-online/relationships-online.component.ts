@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
 selector: 'app-relationships-online',
@@ -15,19 +16,23 @@ correctAnswers: string[] = ['inheritance', 'association', 'aggregation', 'compos
 userAnswers: string[] = ['', '', '', '', '', '', ''];
 isCorrect: boolean | null = null;
 feedbackMessage: string = '';
+correctCount: number = 0;
+
 checkAnswers(): void {
 
-    this.isCorrect = this.userAnswers.every(
-      (answer, index) => answer.toLowerCase().trim() === this.correctAnswers[index]
-    );
+  this.correctCount = this.userAnswers.reduce((count, answer, index) => {
+    return count + (answer.toLowerCase().trim() === this.correctAnswers[index] ? 1 : 0);
+  }, 0);
 
+  this.isCorrect = this.correctCount === this.correctAnswers.length;
+  this.feedbackMessage = this.isCorrect
+    ? 'Great job! Your answers are correct.'
+    : `You got ${this.correctCount} out of ${this.correctAnswers.length} correct!.`;
 
-    this.feedbackMessage = this.isCorrect
-      ? 'Great job! Your answers are correct.'
-      : 'Try again. Some answers are incorrect. Answers are: 1. Inheritance 2. Association 3. Aggregation 4. Composition 5. Dependency 6.Association 7. Inheritance ';
-  }
+  this.cookieService.set('relationships',this.correctCount.toString());
+}
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private cookieService:CookieService){}
   next(){
     this.router.navigate(['/relationships-offline']);
   }

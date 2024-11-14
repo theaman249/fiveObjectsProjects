@@ -18,7 +18,7 @@ export class ClassObjectUmlComponent {
     const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
     modal.showModal();
 
-    let totalPoints = 13;
+    let totalPoints = 16;
     this.cookieService.set('totalPoints_classes', totalPoints.toString());
 
   }

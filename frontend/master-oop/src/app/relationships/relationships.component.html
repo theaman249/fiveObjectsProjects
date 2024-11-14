@@ -72,5 +72,26 @@
       <button class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"  (click)="next()">Next</button>
       <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"  (click)="back()">HomePage</button>
     </div>
+
+
+    <dialog #myModal id="my_modal_1" class="modal">
+      <div class="modal-box">
+          <h3 class="text-lg font-bold">Oh, look who made it here!</h3>
+          <p class="py-4">
+            Well, well, well, it seems you’ve stumbled upon the fabulous world of Object Friendships. 
+            Get ready to witness the drama between objects as they navigate their “relationships.” You’ve 
+            got Associations that are like casual acquaintances, Aggregations that are more like group friendships, 
+            and Compositions—the clingiest friendships of all. So, go ahead, brave soul—step into this social web of 
+            code and try not to get caught up in all the feels. Good luck… you’re going to need it.            
+          </p>
+          <div class="modal-action">
+          <form method="dialog">
+              <!-- if there is a button in form, it will close the modal -->
+              <button class="btn">Close</button>
+          </form>
+          </div>
+      </div>
+    </dialog>
+  
   </div>
 
