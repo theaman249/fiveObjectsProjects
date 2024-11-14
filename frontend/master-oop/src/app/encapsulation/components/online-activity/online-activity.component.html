@@ -2,28 +2,19 @@
     <!-- Display the feedback message -->
     <p>{{ feedbackMessage }}</p>
   
-    <!-- Count of correct snippets -->
-    <p *ngIf="getCorrectCount() > 0">Correct snippets: {{ getCorrectCount() }} / {{ getTotalCount() }}</p>
-  
-    <!-- Draggable snippets -->
-    <div *ngFor="let snippet of snippets" class="snippet" cdkDrag [cdkDragData]="snippet">
-      {{ snippet }}
+    <!-- Display the code structure with blanks -->
+    <div *ngFor="let line of codeStructure" class="code-line">
+      <span [ngClass]="{ 'correct': line.userAnswer && line.userAnswer.trim().toLowerCase() === line.answer.toLowerCase(), 'incorrect': line.userAnswer && line.userAnswer.trim().toLowerCase() !== line.answer.toLowerCase() }">
+        {{ line.line | slice:0:line.line.indexOf('_____') }}
+      </span>
+      <input [(ngModel)]="line.userAnswer" class="code-input" />
+      <span [ngClass]="{ 'correct': line.userAnswer && line.userAnswer.trim().toLowerCase() === line.answer.toLowerCase(), 'incorrect': line.userAnswer && line.userAnswer.trim().toLowerCase() !== line.answer.toLowerCase() }">
+        {{ line.line | slice:line.line.indexOf('_____') + 5 }}
+      </span>
     </div>
   
-    <!-- Placeholder for dropping snippets -->
-    <div *ngFor="let placeholder of placeholders" class="placeholder" cdkDropList (cdkDropListDropped)="onDrop($event, placeholder)">
-      <p>{{ placeholder.name }}</p>
-  
-      <!-- Show the dropped snippet or an empty space -->
-      <div *ngIf="isSnippetDropped(placeholder)" class="dropped">
-        <p>{{ placeholder.correctSnippet }}</p>
-      </div>
-      <div *ngIf="!isSnippetDropped(placeholder)" class="empty-placeholder">
-        <p>Drop snippet here</p>
-      </div>
-    </div>
-  
-    <!-- Reset Button -->
+    <!-- Submit and Reset buttons -->
+    <button (click)="checkAnswers()">Check Answers</button>
     <button (click)="resetActivity()">Reset Activity</button>
   </div>
   

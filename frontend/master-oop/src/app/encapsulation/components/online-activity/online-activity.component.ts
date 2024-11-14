@@ -1,6 +1,7 @@
-import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
+import { CdkDrag, CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 // Define the allowed keys as a union type
 type PlaceholderKey = 'accessModifier' | 'balanceField' | 'nameField' | 'getter' | 'setter';
@@ -8,59 +9,45 @@ type PlaceholderKey = 'accessModifier' | 'balanceField' | 'nameField' | 'getter'
 @Component({
   selector: 'app-online-activity',
   standalone: true,
-  imports: [DragDropModule, CommonModule],
+  imports: [DragDropModule, CommonModule, FormsModule],
   templateUrl: './online-activity.component.html',
   styleUrls: ['./online-activity.component.scss']
 })
-export class OnlineActivityComponent implements OnInit {
+export class OnlineActivityComponent {
   
-  feedbackMessage: string = 'Drag and drop the snippets into the placeholders!';  // Initial message
-  snippets = [
-    'public int getAccountNumber() { return accountNumber; }',
-    'public String getOwnerName() { return ownerName; }',
-    'private int accountNumber;',
-    'private String ownerName;'
+  // Define the initial code structure with blanks represented as empty strings
+  codeStructure = [
+    { line: '_____ class Account {', answer: 'public', userAnswer: '' },
+    { line: 'private _____ name;', answer: 'String', userAnswer: '' },
+    { line: '_____ getName() {', answer: 'public', userAnswer: '' },
+    { line: '  return name;', answer: '', userAnswer: '' },
+    { line: '_____ setName(String name) {', answer: 'public', userAnswer: '' },
+    { line: '  this.name = name;', answer: '', userAnswer: '' },
+    { line: '}', answer: '}', userAnswer: '' },
   ];
 
-  placeholders = [
-    { id: 1, name: 'Drop the getter for accountNumber here', correctSnippet: 'public int getAccountNumber() { return accountNumber; }', dropped: false },
-    { id: 2, name: 'Drop the setter for accountNumber here', correctSnippet: 'private int accountNumber;', dropped: false },
-    { id: 3, name: 'Drop the getter for ownerName here', correctSnippet: 'public String getOwnerName() { return ownerName; }', dropped: false },
-    { id: 4, name: 'Drop the setter for ownerName here', correctSnippet: 'private String ownerName;', dropped: false }
-  ];
+  feedbackMessage = 'Fill in the blanks with the correct code pieces to complete the encapsulation example!';
 
-  constructor() { }
+  // Function to check if the student's answer is correct
+  checkAnswers(): void {
+    let correctCount = 0;
+    this.codeStructure.forEach(line => {
+      if (line.userAnswer.trim().toLowerCase() === line.answer.toLowerCase()) {
+        correctCount++;
+      }
+    });
 
-  ngOnInit(): void { }
-
-  onDrop(event: CdkDragDrop<string[]>, placeholder: any): void {
-    // Check if the dropped snippet matches the correct snippet for the placeholder
-    if (event.item.data === placeholder.correctSnippet && !placeholder.dropped) {
+    if (correctCount === this.codeStructure.length) {
       this.feedbackMessage = 'Great job! You’ve completed the activity!';
-      placeholder.dropped = true;  // Mark the placeholder as correctly filled
-    } else if (!placeholder.dropped) {
-      this.feedbackMessage = 'Oops! Try again.';
+    } else {
+      this.feedbackMessage = 'Some answers are incorrect. Try again!';
     }
   }
 
-  isSnippetDropped(placeholder: any): boolean {
-    return placeholder.dropped;
-  }
-
+  // Function to reset the activity
   resetActivity(): void {
-    // Reset each placeholder's dropped status and set initial feedback message
-    this.placeholders.forEach(placeholder => placeholder.dropped = false);
-    this.feedbackMessage = 'Drag and drop the snippets into the placeholders!'; // Reset the message
+    this.codeStructure.forEach(line => line.userAnswer = '');
+    this.feedbackMessage = 'Fill in the blanks with the correct code pieces to complete the encapsulation example!';
   }
-
-  getCorrectCount(): number {
-    return this.placeholders.filter(placeholder => placeholder.dropped).length;
-  }
-  
-  getTotalCount(): number {
-    return this.placeholders.length;
-  }
-  
-
 
 }
