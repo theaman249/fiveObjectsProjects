@@ -1,5 +1,6 @@
 import { Component, viewChild, ViewEncapsulation, ElementRef  } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-class-object-uml',
@@ -11,11 +12,15 @@ import { Router } from '@angular/router';
 })
 export class ClassObjectUmlComponent {
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private cookieService:CookieService){}
 
   ngOnInit(): void {
     const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
     modal.showModal();
+
+    let totalPoints = 13;
+    this.cookieService.set('totalPoints_classes', totalPoints.toString());
+
   }
 
   next(){

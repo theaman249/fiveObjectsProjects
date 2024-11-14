@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-classes-online-game2',
@@ -48,9 +49,18 @@ export class ClassesOnlineGame2Component {
 
     //Reset the answers and points.
     this.answers = [];
+
+    //fetch the cookie
+    let currentScore = this.cookieService.get('classes') ? parseInt(this.cookieService.get('classes'), 10) : 0; 
+
+    //increment the cookie
+    currentScore = currentScore + this.points;
+
+    //set the cookie again
+    this.cookieService.set('classes', currentScore.toString());
   }
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private cookieService:CookieService){}
 
   next(){
     this.router.navigate(['/diagrams']);
